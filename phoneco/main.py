@@ -8,7 +8,7 @@ import bluetooth
 
 
 # instanciation du singleton de params
-print(Params(load_params()).phones)
+print(Params(load_params()))
 
 
 def status_control(client):
