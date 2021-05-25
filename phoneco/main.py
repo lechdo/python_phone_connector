@@ -1,6 +1,6 @@
 # encoding:utf-8
 from phoneco.logger import logger
-from phoneco.models import State, Phone, Cli, Params
+from phoneco.models import State, Phone, Params
 import paho.mqtt.client as mqtt
 from time import sleep
 from phoneco.params_parser import load_params
@@ -30,6 +30,7 @@ def status_control(client):
                 phone.status = detected_state
                 logger.info(f"Changed phone status : phone {phone.name}, status {repr(phone.status)}")
                 client.publish(key, detected_state, retain=False)
+        logger.info("Status control, pending 15 seconds...")
         sleep(15)
 
 
@@ -38,13 +39,13 @@ def connexion():
     Réalise la connection, et renvoie le client
     :return:
     """
-    cur_cli = Params().client
-    logger.info(f"starting on client data: {cur_cli}")
-    client = mqtt.Client(cur_cli.name)
-    client.tls_set(cur_cli.certificate_file)
-    client.username_pw_set(cur_cli.username, cur_cli.password)
+    client = Params().client
+    logger.info(f"starting on client data: {client}")
+    client = mqtt.Client(client.name)
+    client.tls_set(client.certificate_file)
+    client.username_pw_set(client.username, client.password)
     logger.debug(f"starting client connexion...")
-    client.connect(cur_cli.mqtt_broker, cur_cli.port)
+    client.connect(client.mqtt_broker, client.port)
     logger.debug(f"Connexion established.")
     client.loop_start()
     logger.debug("client loop thread started")
@@ -58,7 +59,7 @@ def main():
             status_control(client)
         except Exception as e:
             logger.exception(f"A non planned error occured")
-            logger.info(f"instead of error, the script will continue indefinitely.")
+            logger.warning(f"instead of any error, the script will continue indefinitely. Be careful !")
 
 
 if __name__ == '__main__':

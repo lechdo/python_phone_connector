@@ -1,5 +1,4 @@
 # encoding:utf-8
-from collections import namedtuple
 from enum import Enum
 from collections import abc
 from keyword import iskeyword
@@ -43,9 +42,6 @@ class Phone:
         if other.name == self.name and other.mac == self.mac:
             return True
         return False
-
-
-Cli = namedtuple('Client', 'name username password certificate_file mqtt_broker port')
 
 
 class FrozenJson:
@@ -97,11 +93,9 @@ def singleton(class_):
     return inner
 
 
-
-
 @singleton
 class Params:
-    __slots__ = ("__data", )
+    __slots__ = ("__data",)
 
     def __init__(self, data=None):
         self.__data = FrozenJson(data)
