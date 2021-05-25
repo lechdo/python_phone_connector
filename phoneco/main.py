@@ -41,7 +41,6 @@ def connexion():
     cli = Params().client
     logger.info(f"starting on client data: {cli}")
     client = mqtt.Client(cli.name)
-    client.tls_set(cli.certificate_file)
     client.username_pw_set(cli.username, cli.password)
     logger.debug(f"starting client connexion...")
     client.connect(cli.mqtt_broker, cli.port)
