@@ -1,9 +1,9 @@
 # encoding:utf-8
-from phoneco.logger import logger
-from phoneco.models import State, Phone, Params
+from .logger import logger
+from .models import State, Phone, Params
 import paho.mqtt.client as mqtt
 from time import sleep
-from phoneco.params_parser import load_params
+from .params_parser import load_params
 import bluetooth
 
 # instanciation du singleton de params

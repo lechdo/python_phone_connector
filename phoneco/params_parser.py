@@ -1,6 +1,6 @@
 from json import loads
 from json.decoder import JSONDecodeError
-from phoneco.logger import logger
+from .logger import logger
 
 
 def load_params():
