@@ -6,7 +6,6 @@ from time import sleep
 from phoneco.params_parser import load_params
 import bluetooth
 
-
 # instanciation du singleton de params
 print(Params(load_params()))
 
@@ -39,13 +38,13 @@ def connexion():
     Réalise la connection, et renvoie le client
     :return:
     """
-    client = Params().client
-    logger.info(f"starting on client data: {client}")
-    client = mqtt.Client(client.name)
-    client.tls_set(client.certificate_file)
-    client.username_pw_set(client.username, client.password)
+    cli = Params().client
+    logger.info(f"starting on client data: {cli}")
+    client = mqtt.Client(cli.name)
+    client.tls_set(cli.certificate_file)
+    client.username_pw_set(cli.username, cli.password)
     logger.debug(f"starting client connexion...")
-    client.connect(client.mqtt_broker, client.port)
+    client.connect(cli.mqtt_broker, cli.port)
     logger.debug(f"Connexion established.")
     client.loop_start()
     logger.debug("client loop thread started")
@@ -57,6 +56,9 @@ def main():
         try:
             client = connexion()
             status_control(client)
+        except FileNotFoundError as e:
+            logger.exception("The param json file cannot be found !")
+            raise
         except Exception as e:
             logger.exception(f"A non planned error occured")
             logger.warning(f"instead of any error, the script will continue indefinitely. Be careful !")

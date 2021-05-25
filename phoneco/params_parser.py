@@ -13,3 +13,4 @@ def load_params():
         raise
     except JSONDecodeError as e:
         logger.exception(e)
+        raise
