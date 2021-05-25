@@ -1,0 +1,24 @@
+{
+  "phones": [
+    {
+      "name": "person1",
+      "mac": "<mac address>"
+    },
+    {
+      "name": "person2",
+      "mac": "<mac address>"
+    }
+  ],
+  "client": {
+    "name": "hass-client",
+    "certificate_file": "/home/pi/certs/ca-certificates.crt",
+    "username": "<username>",
+    "password": "<password>",
+    "mqtt_broker": "<mqtt broker>",
+    "port": 8883
+  }
+}
+
+
+
+
